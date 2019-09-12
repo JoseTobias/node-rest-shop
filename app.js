@@ -10,7 +10,7 @@ const orderRoutes = require('./api/routes/orders');
 mongoose.connect('mongodb+srv://tobias:tobias@cluster0-xzi9o.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true
 });
-
+mongoose.Promise = global.Promise;
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
