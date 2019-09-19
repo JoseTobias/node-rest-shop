@@ -12,6 +12,7 @@ mongoose.connect('mongodb+srv://tobias:tobias@cluster0-xzi9o.mongodb.net/test?re
 });
 mongoose.Promise = global.Promise;
 app.use(morgan('dev'));
+app.use('/uploads', express.static('uploads'));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
