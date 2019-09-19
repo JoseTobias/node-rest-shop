@@ -7,16 +7,17 @@ const Product = require('../models/product');
 
 router.get('/', (req, res, next) => {
     Order.find()
-    .select("produc quantity _id")
+    .select("produc quantity _id") 
+    .populate('product', 'name')
     .exec()
     .then(docs => {
         const response = {
             count: docs.length,
             orders: docs.map(doc => {
                 return {
+                    _id: doc._id,
                     product: doc.product,
                     quantity: doc.quantity,
-                    _id: doc._id,
                     request: {
                         type: 'GET',
                         url: 'http://localhost:3000/orders/' + doc._id
@@ -47,7 +48,7 @@ router.post('/', (req, res, next) => {
         const order = new Order({
             _id: mongoose.Types.ObjectId(),
             quantity: req.body.quantity,
-            pruduct: req.body.productId
+            product: req.body.productId
         });
         return order.save()
     })
@@ -76,6 +77,7 @@ router.post('/', (req, res, next) => {
 
 router.get('/:orderId', (req, res, next) => {
     Order.findById(req.params.orderId)
+    .populate('product')
     .exec()
     .then(order => {
         if(!order) {
