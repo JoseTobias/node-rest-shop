@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 
 const productsRoutes = require('./api/routes/products');
 const orderRoutes = require('./api/routes/orders');
+const userRoutes = require('./api/routes/user');
 
 mongoose.connect('mongodb+srv://tobias:tobias@cluster0-xzi9o.mongodb.net/test?retryWrites=true&w=majority', {
     useNewUrlParser: true
@@ -18,6 +19,7 @@ app.use(bodyParser.json());
 
 app.use('/products', productsRoutes);
 app.use('/orders', orderRoutes);
+app.use('/user', userRoutes);
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
